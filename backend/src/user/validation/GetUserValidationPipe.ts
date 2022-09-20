@@ -1,5 +1,5 @@
 import { PipeTransform } from '@nestjs/common'
-import { UserDto } from 'src/dto'
+import { UserDto } from '../../dto'
 import { UserValidationException } from '../exceptions'
 import { GetUserSchema } from './ValidationSchemas'
 

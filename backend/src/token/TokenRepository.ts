@@ -1,4 +1,4 @@
-import { Repository } from 'src/utils'
+import { Repository } from '../utils'
 import { getManager } from 'typeorm'
 import { Token } from './Token'
 

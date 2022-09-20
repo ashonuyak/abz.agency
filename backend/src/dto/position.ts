@@ -1,4 +1,4 @@
-import { User } from 'src/user/User'
+import { User } from '../user/User'
 
 export interface Position {
   name: string

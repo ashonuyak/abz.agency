@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import { Position } from 'src/position/Position'
+import { Position } from '../position/Position'
 import { PositionService } from './PositionService'
 
 @Controller()

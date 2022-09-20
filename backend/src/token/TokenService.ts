@@ -1,4 +1,5 @@
 import { Injectable, HttpException } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { TokenRepository } from './TokenRepository'
 import { JwtService } from '@nestjs/jwt'
 import { Token } from './Token'
@@ -7,11 +8,15 @@ import { Token } from './Token'
 export class TokenService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly repository: TokenRepository
+    private readonly repository: TokenRepository,
+    private readonly configService: ConfigService
   ) {}
 
   async getToken(): Promise<string> {
-    const hash = this.jwtService.sign({ exp: Math.floor(Date.now() / 1000) + 60 * 40 })
+    const hash = this.jwtService.sign(
+      { exp: Math.floor(Date.now() / 1000) + 60 * 40 },
+      { secret: this.configService.get('JWT_SECRET') }
+    )
     const token = new Token({ hash })
     await this.repository.save(token)
     return hash

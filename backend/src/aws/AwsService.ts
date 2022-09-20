@@ -1,26 +1,17 @@
-import { TYPES } from './constants'
 import tinify from 'tinify'
 import { v4 as uuid } from 'uuid'
 
-import { Inject, Injectable, HttpException } from '@nestjs/common'
-import { Options } from './interfaces'
+import { Injectable, HttpException } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class AwsService {
-  private readonly accessKey: string
-  private readonly secretKey: string
-  private readonly bucketName: string
-  private readonly folder: string
-  constructor(@Inject(TYPES.Options) { accessKey, secretKey, bucketName, folder }: Options) {
-    this.accessKey = accessKey
-    this.secretKey = secretKey
-    this.bucketName = bucketName
-    this.folder = folder
-  }
+  constructor(private configService: ConfigService) {}
 
-  async uploadS3(photo: Buffer): Promise<string> {
-    tinify.key = 'RlrfScLBLZLFlpVbY7DJJZtVXlGvn78H'
-    const source = tinify.fromBuffer(photo)
+  async uploadS3(photo: string): Promise<string> {
+    tinify.key = this.configService.getOrThrow('TINIFY_KEY')
+    const buffer = Buffer.from(Buffer.from(photo.replace(/^data:image\/\w+;base64,/, ''), 'base64'))
+    const source = tinify.fromBuffer(buffer)
     const resized = source.resize({
       method: 'thumb',
       width: 70,
@@ -30,10 +21,12 @@ export class AwsService {
     const photoUrl = await resized
       .store({
         service: 's3',
-        aws_access_key_id: this.accessKey,
-        aws_secret_access_key: this.secretKey,
-        region: 'us-west-1',
-        path: `${this.bucketName}/${this.folder}/${uuid()}`,
+        aws_access_key_id: this.configService.get('AWS_ACCESS_KEY'),
+        aws_secret_access_key: this.configService.get('AWS_SECRET'),
+        region: 'eu-central-1',
+        path: `${this.configService.get('AWS_BUCKETNAME')}/${this.configService.get(
+          'AWS_FOLDER'
+        )}/${uuid()}`,
       })
       .location()
     if (!photoUrl) {

@@ -34,6 +34,9 @@ export const UserSchema = Joi.object({
       'string.empty': 'Phone cannot be an empty field.',
       'any.required': 'Phone field is required.',
     }),
+  photo: Joi.string().max(7000000).messages({
+    'string.max': 'The photo may not be greater than 5 Mbytes.',
+  }),
   position: Joi.number().required().label('Position').messages({
     'number.position': 'Position is invalid.',
     'number.base': 'Position cannot be an empty field.',

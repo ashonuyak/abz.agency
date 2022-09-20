@@ -1,18 +1,19 @@
-import { Position } from 'src/position/Position'
-import { Token } from 'src/token/Token'
-import { User } from 'src/user/User'
+import { Position } from './position/Position'
+import { Token } from './token/Token'
+import { User } from './user/User'
 
-export default {
+export const config = () => ({
+  api: {
+    origin: process.env.API_ORIGIN,
+  },
   typeorm: {
-    type: {
-      default: 'postgres',
-    },
-    url: {
-      format: String,
-      default: 'postgres://localhost/test',
-      sensitive: true,
-      env: 'POSTGRES_URL',
-    },
+    type: process.env.DB_TYPE,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    logging: false,
     entities: [User, Position, Token],
   },
   jwt: {
@@ -44,4 +45,4 @@ export default {
       env: 'AWS_FOLDER',
     },
   },
-} as const
+})

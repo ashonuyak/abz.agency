@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
-import { UserDto } from 'src/dto'
+import { UserDto } from '../dto'
 import { User } from './User'
 import { UserRepository } from './UserRepository'
-import { AwsService } from 'src/aws'
-import { NotUnique } from 'src/utils/errors'
+import { AwsService } from '../aws'
+import { NotUnique } from '../utils/errors'
 import { NotUniqueException, PageNotFoundException, UserNotFoundException } from './exceptions'
 import { UserMapper } from './UserMapper'
-import { TokenService } from 'src/token/TokenService'
+import { TokenService } from '../token/TokenService'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,8 @@ export class UserService {
     private readonly repository: UserRepository,
     private readonly awsService: AwsService,
     private readonly mapper: UserMapper,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
+    private readonly configService: ConfigService
   ) {}
 
   async create(
@@ -61,14 +63,14 @@ export class UserService {
             ? Math.ceil(offset / count) != Math.ceil(usersCount / count) && offset < usersCount - 10
             : page != Math.ceil(usersCount / count)
         )
-          ? `http://localhost:3000/users?page=${
+          ? `${this.configService.get('API_ORIGIN')}/users?page=${
               offset ? Math.ceil(offset / count) + 2 : Number(page) + 1
             }${offset ? `&offset=${Number(offset) + Number(count)}` : ''}&count=${count}`
           : null,
         prev_url: (offset ? Math.ceil(offset / count) + 1 != 1 : page != 1)
-          ? `http://localhost:3000/users?page=${offset ? Math.ceil(offset / count) : page - 1}${
-              offset ? `&offset=${offset - count < 0 ? 0 : offset - count}` : ''
-            }&count=${count}`
+          ? `${this.configService.get('API_ORIGIN')}/users?page=${
+              offset ? Math.ceil(offset / count) : page - 1
+            }${offset ? `&offset=${offset - count < 0 ? 0 : offset - count}` : ''}&count=${count}`
           : null,
       },
       users: this.mapper.toAggregatedDto(users),

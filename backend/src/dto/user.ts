@@ -1,12 +1,12 @@
-import { Position } from 'src/position/Position'
-import { User } from 'src/user/User'
+import { Position } from '../position/Position'
+import { User } from '../user/User'
 
 export interface CreateUser {
   name: string
   email: string
   phone: string
   position: Position
-  photo: Buffer
+  photo: string
 }
 
 export interface UserAggregated extends Omit<User, 'position'> {

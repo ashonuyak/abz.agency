@@ -36,7 +36,7 @@ const seed = async (): Promise<void> => {
     const randomPhone = faker.phone.number(`+380${operator}#######`)
     const randomPosition = (Math.floor(Math.random() * positions.length) + 1).toString()
     const randomPhoto =
-      'https://s3.us-west-1.amazonaws.com/abz.agency/users/352e80c2-0946-4162-91ce-ec2e6d496987'
+      'https://s3.eu-central-1.amazonaws.com/abz.agency/users/ecf9a54a-09d4-4659-b64d-667e46406c7f'
 
     await userRepository.save({
       id: uuid(),

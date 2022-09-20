@@ -1,4 +1,4 @@
-import { Repository } from 'src/utils'
+import { Repository } from '../utils'
 import { getManager } from 'typeorm'
 import { User } from './User'
 
@@ -7,7 +7,7 @@ export class UserRepository extends Repository<User>(User) {
     return em
       .createQueryBuilder(User, 'user')
       .leftJoinAndSelect('user.position', 'position.id')
-      .orderBy('user.id', 'ASC')
+      .orderBy('user.registration_timestamp', 'ASC')
       .skip(skip)
       .take(take)
       .getMany()

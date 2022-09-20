@@ -1,5 +1,5 @@
-import { Position } from 'src/position/Position'
-import { Repository } from 'src/utils'
+import { Position } from '../position/Position'
+import { Repository } from '../utils'
 import { getManager } from 'typeorm'
 
 export class PositionRepository extends Repository<Position>(Position) {
