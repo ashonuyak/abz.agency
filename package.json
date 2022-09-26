@@ -13,5 +13,9 @@
     "postinstall": "if [ $FRONTEND_ENV ]; then npm run postinstall-frontend; elif [ $BACKEND_ENV ]; then npm run postinstall-backend; else echo no environment detected, please set FRONTEND_ENV or BACKEND_ENV; fi",
     "postinstall-frontend": "cd frontend && yarn install && yarn build",
     "postinstall-backend": "cd backend && yarn install && yarn build"
-   }
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^2.1.0",
+    "vite": "^3.1.3"
+  }
 }
