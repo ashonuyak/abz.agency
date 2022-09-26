@@ -23,7 +23,7 @@
     "migration:generate": "yarn typeorm -- migration:generate -n",
     "migration:run": "yarn typeorm -- migration:run",
     "seed": "ts-node seeds/seed.ts",
-    "postinstall": "yarn start:prod"
+    "postinstall": "yarn start"
   },
   "dependencies": {
     "@faker-js/faker": "^7.5.0",
