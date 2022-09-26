@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": ">=0.10.3 <15"
+    "node": "16.15.1"
   },
   "repository": "git@github.com:ashonuyak/abz.agency.git",
   "author": "ashonuyak <ashonuyak@gmail.com>",
