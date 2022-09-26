@@ -26,8 +26,7 @@ export class UserService {
     try {
       const photoUrl = await this.awsService.uploadS3(dto.photo)
 
-      const user = new User({ ...dto, photo: photoUrl })
-      const { id } = await this.repository.save(user)
+      const { id } = await this.repository.save(new User({ ...dto, photo: photoUrl }))
 
       await this.tokenService.deleteToken(token)
 
@@ -73,7 +72,7 @@ export class UserService {
             }${offset ? `&offset=${offset - count < 0 ? 0 : offset - count}` : ''}&count=${count}`
           : null,
       },
-      users: this.mapper.toAggregatedDto(users),
+      users: users.map((user) => this.mapper.toDto(user)),
     }
   }
 

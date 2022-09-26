@@ -1,0 +1,14 @@
+{
+  "name": "abz.agency",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ashonuyak/abz.agency.git",
+  "author": "ashonuyak <ashonuyak@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "postinstall": "if [ $FRONTEND_ENV ]; then npm run postinstall-frontend; elif [ $BACKEND_ENV ]; then npm run postinstall-backend; else echo no environment detected, please set FRONTEND_ENV or BACKEND_ENV; fi",
+    "postinstall-frontend": "cd frontend && yarn install && yarn build",
+    "postinstall-backend": "cd backend && yarn install && yarn build"
+   }
+}

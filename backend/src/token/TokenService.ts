@@ -23,6 +23,7 @@ export class TokenService {
   }
 
   async verifyToken(token: string): Promise<void> {
+    await this.jwtService.verify(token, { secret: this.configService.get('JWT_SECRET') })
     const isExisted = await this.repository.findOne({ hash: token })
     if (!isExisted) {
       throw new HttpException('You are not allowed to use token more than once', 400)
