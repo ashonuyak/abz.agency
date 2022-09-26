@@ -11,11 +11,10 @@ const positions = ['Designer', 'Security', 'Developer', 'Architector', 'Software
 const seed = async (): Promise<void> => {
   await createConnection({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'postgres',
-    database: 'abz.agency',
+    host: 'jelani.db.elephantsql.com',
+    username: 'dtmdeyqt',
+    password: 'FzF-zo-c1gv7O_HIB6OFE8mJihhtH6f-',
+    database: 'dtmdeyqt',
     entities: [User, Position, Token],
   })
   const userRepository = getRepository(User)
