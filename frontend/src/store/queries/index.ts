@@ -9,7 +9,7 @@ export type ErrorType = {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3002',
+  baseUrl: process.env.API_ORIGIN,
   prepareHeaders: (headers) => {
     const token = localStorage.getItem('token')
     if (token) {

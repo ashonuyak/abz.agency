@@ -13,6 +13,6 @@ async function bootstrap(): Promise<void> {
 
   app.useGlobalInterceptors(new ResponseInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
-  await app.listen(3002)
+  await app.listen(process.env.PORT || 3002)
 }
 bootstrap()
