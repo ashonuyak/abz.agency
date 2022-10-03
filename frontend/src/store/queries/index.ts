@@ -9,7 +9,7 @@ export type ErrorType = {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.API_ORIGIN,
+  baseUrl: 'https://abz-agency-test-app-server.herokuapp.com',
   prepareHeaders: (headers) => {
     const token = localStorage.getItem('token')
     if (token) {
