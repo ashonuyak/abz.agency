@@ -11,8 +11,8 @@
   "private": true,
   "scripts": {
     "postinstall": "if [ $FRONTEND_ENV ]; then npm run postinstall-frontend; elif [ $BACKEND_ENV ]; then npm run postinstall-backend; else echo no environment detected, please set FRONTEND_ENV or BACKEND_ENV; fi",
-    "postinstall-frontend": "cd frontend && yarn install",
-    "postinstall-backend": "cd backend && yarn install"
+    "postinstall-frontend": "cd frontend && npm install",
+    "postinstall-backend": "cd backend && npm install"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^2.1.0",
